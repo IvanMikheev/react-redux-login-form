@@ -1,8 +1,11 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react'
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
+import { logIn } from '../../actions/LoginAction'
 import './Login.css'
 
-export class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -21,23 +24,32 @@ export class Login extends Component {
     this.setState({
       [name]: value
     })
-  
   }
-
 
   handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(this.state.username, this.state.password);
+    const { username, password } = this.state;
 
+    this.props.logIn({
+      username,
+      password
+    });
   }
-
 
   render() {
     const { username, password } = this.state;
+    const { isAuthorized, error } = this.props;
 
+    if (isAuthorized) {
+      return <Redirect to='/' />;
+    }
     return (
       <Form onSubmit={this.handleSubmit} className="form">
+        <Alert color="danger" isOpen={Boolean(error)} >
+          {error}
+        </Alert>
+
         <FormGroup>
           <Label for="username">Логин</Label>
           <Input
@@ -63,4 +75,17 @@ export class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = (state) => (
+  {
+    isAuthorized: Boolean(state.username),
+    error: state.errorMsg
+  }
+);
+
+const mapDispatchToProps = (dispatch) => (
+  {
+    logIn: (params) => dispatch(logIn(params)),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
