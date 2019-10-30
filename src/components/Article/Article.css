@@ -1,0 +1,31 @@
+.article {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
+  border: 1px solid #999;
+  border-radius: 10px;  
+}
+
+.article .article-image {
+  margin: 20px;
+  width: 300px;
+  height: 100%;
+}
+
+.article a {  
+  text-decoration: none;
+}
+
+.article .title a{
+  color: #444;
+  font-size: 1.3rem;
+}
+
+.article .title a:hover{
+  color:#999;
+}
+
+.article .btn a {  
+  color:#fff;
+}
