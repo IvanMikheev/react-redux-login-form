@@ -10,7 +10,6 @@ const checkLogin = (params) => {
 }
 
 export function logIn(params) {
-  console.log(params);
   if (checkLogin(params)) {
     return {
       type: LOG_IN,

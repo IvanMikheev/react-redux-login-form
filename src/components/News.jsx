@@ -3,6 +3,7 @@ import Article from './Article/Article';
 import { Spinner } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 
 class News extends Component {
   constructor(props) {
@@ -12,6 +13,10 @@ class News extends Component {
       articles: [],
       isLoading: false,
     };
+  }
+
+  static propTypes = {
+    isAuthorized: PropTypes.bool
   }
 
   componentDidMount() {

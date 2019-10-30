@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import { logIn } from '../../actions/LoginAction'
+import PropTypes from 'prop-types'
 import './Login.css'
 
 class Login extends Component {
@@ -16,6 +17,12 @@ class Login extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  static propTypes = {
+    isAuthorized: PropTypes.bool,
+    error: PropTypes.string,
+    logIn: PropTypes.func.isRequired
   }
 
   handleChange = (event) => {
@@ -44,6 +51,7 @@ class Login extends Component {
     if (isAuthorized) {
       return <Redirect to='/' />;
     }
+    
     return (
       <Form onSubmit={this.handleSubmit} className="form">
         <Alert color="danger" isOpen={Boolean(error)} >
